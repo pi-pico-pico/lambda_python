@@ -1,5 +1,5 @@
 import json
-
+# Lambdaデフォルト関数
 def lambda_handler(event, context):
     # TODO implement
     return {
