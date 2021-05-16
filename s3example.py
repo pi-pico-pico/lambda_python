@@ -1,3 +1,4 @@
+# coding: UTF-8
 import boto3
 import pyminizip
 import tempfile
@@ -11,13 +12,13 @@ obj = s3.Object('examplebucketread',filename)
 response = obj.get()
 tmpdir = tempfile.TemporaryDirectory()
 fp = open(tmpdir.name + '/' + filename, 'wb')
-fp.write(response['Body'].read)
+fp.write(response['Body'].read())
 fp.close()
 
 # 暗号化
-zipname = tempfile.mkstemp(sufix='.zip')[1]
+zipname = tempfile.mkstemp(suffix='.zip')[1]
 os.chdir(tmpdir.name)
-pyminizip.compress(filename, zipname, 'mypassword', 0)
+pyminizip.compress(filename, '', zipname, 'mypassword', 0)
 
 # S3にアップロード
 obj = s3.Object('examplebucketwrite', filename + '.zip')
