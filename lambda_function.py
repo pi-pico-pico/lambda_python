@@ -39,3 +39,18 @@ def lambda_handler(event, context):
         # 一時ファイルの削除
         tmpdir.cleanup()
         os.unlink(zipname)
+
+
+# =================================
+# =================================
+# テストデータ作成
+# =================================
+# =================================
+import json
+if __name__ == "__main__":
+    data = '''
+    '''
+
+    event = json.loads(data)
+    context = None
+    lambda_handler(event, context)
