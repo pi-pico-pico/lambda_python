@@ -1,3 +1,4 @@
+# coding: UTF-8
 import boto3
 import pyminizip
 import tempfile
@@ -22,7 +23,7 @@ def lambda_handler(event, context):
         # 一時ディレクトリ作成
         tmpdir = tempfile.TemporaryDirectory()
         fp = open(tmpdir.name + '/' + filename, 'wb')
-        fp.write()
+        fp.write(response['Body'].read())
         fp.close()
 
         # 暗号化
@@ -43,12 +44,26 @@ def lambda_handler(event, context):
 
 # =================================
 # =================================
-# テストデータ作成
+# テスト用プログラム
 # =================================
 # =================================
 import json
 if __name__ == "__main__":
     data = '''
+        {
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "examplebucketread"
+        },
+        "object": {
+          "key": "test.jpg"
+        }
+      }
+    }
+  ]
+}
     '''
 
     event = json.loads(data)
