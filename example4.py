@@ -2,7 +2,7 @@ import json
 
 # イベント引数をログに書き出すプログラム
 def lambda_handler(event, context):
-    print(json.json.dumps(event, indent=4))
+    print(json.dumps(event, indent=4))
     
     # JSON形式の戻り値を設定する
     return {
