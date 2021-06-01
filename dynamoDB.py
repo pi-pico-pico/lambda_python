@@ -37,3 +37,37 @@ def lambda_handler(event, context):
 
         # 現在のUNIXタイムスタンプを得る
         now = time.time()
+
+        # userテーブルに登録する
+        usertable = dynamodb.Table("user")
+        usertable.put_item(
+            Item={
+                'id' : nextseq,
+                'username' : username,
+                'email' : email,
+                'accepted_at' : decimal.Decimal(str(now)),
+                'host' : host
+            }
+        )
+
+        # 結果を返す
+        return {
+            'statusCode' : 200,
+            'headers' : {
+                'content-type' : 'text/html'
+            },
+            'body' : '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>登録ありがとうございました。</body></html>'
+        }
+
+    except:
+        import traceback
+        traceback.print_exc()
+        return {
+                        'statusCode' : 500,
+            'headers' : {
+                'content-type' : 'text/html'
+            },
+            'body' : '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>内部エラーが発生しました。</body></html>'
+        }
+
+        
