@@ -12,3 +12,15 @@ class DecimalEncoder(json.JSONEncoder):
             else:
                 return int(o)
         return super(DecimalEncoder, self).default(o)
+
+def lambda_handler(event, context):
+    usertable = dynamodb.Table("user")
+    response = usertable.scan()
+
+    return {
+        'statusCode' : 200,
+        'body' : json.dumps(response['Items'], cls=DecimalEncoder),
+        'headers' : {
+            'Content-Type' : 'application/json'
+        }
+    }
