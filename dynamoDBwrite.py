@@ -8,7 +8,7 @@ import decimal
 dynamodb = boto3.resource('dynamodb')
 
 # 連番を更新して返す関数
-def next_seq(table,tablename)
+def next_seq(table,tablename):
     response = table.update_item(
         Key={
             'tablename' : tablename
