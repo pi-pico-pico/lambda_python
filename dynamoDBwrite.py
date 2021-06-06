@@ -63,7 +63,7 @@ def lambda_handler(event, context):
         import traceback
         traceback.print_exc()
         return {
-                        'statusCode' : 500,
+            'statusCode' : 500,
             'headers' : {
                 'content-type' : 'text/html'
             },
