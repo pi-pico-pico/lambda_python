@@ -24,7 +24,7 @@ def next_seq(table,tablename):
 def lambda_handler(event, context):
     try:
         # シーケンスデータを得る
-        seqtable = dtnamodb.Table('sequence')
+        seqtable = dynamodb.Table('sequence')
         nextseq = next_seq(seqtable, 'user')
 
         # フォームに入力されたデータを得る
