@@ -7,6 +7,8 @@ import decimal
 # DynamoDBオブジェクト
 dynamodb = boto3.resource('dynamodb')
 
+MAILFROM = 'example@examle.com'
+
 # 連番を更新して返す関数
 def next_seq(table,tablename):
     response = table.update_item(
