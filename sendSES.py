@@ -8,6 +8,25 @@ import decimal
 dynamodb = boto3.resource('dynamodb')
 
 MAILFROM = 'example@examle.com'
+def sendmail(to, subject, body) :
+    client = boto3.client('ses', region_name='ap-northeast-1')
+
+    response = client.send_email(
+        Source=MAILFROM,
+        ReplyToAddresses=[MAILFROM],
+        Destination= {
+            'ToAddresses' : [
+                to
+            ]
+        },
+        Message={
+            'Subject': {
+                'Data' : subject,
+                'Charset' : 'UTF-8'
+            }
+        }
+    )
+
 
 # 連番を更新して返す関数
 def next_seq(table,tablename):
