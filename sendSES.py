@@ -44,9 +44,6 @@ def next_seq(table,tablename):
 
 def lambda_handler(event, context):
     try:
-        # シーケンスデータを得る
-        seqtable = dynamodb.Table('sequence')
-        nextseq = next_seq(seqtable, 'user')
 
         # フォームに入力されたデータを得る
         param = urllib.parse.parse_qs(event['body'])
@@ -56,9 +53,12 @@ def lambda_handler(event, context):
         # クライアントのIPを得る
         host = event['requestContext']['identity']['sourceIp']
 
+        # シーケンスデータを得る
+        seqtable = dynamodb.Table('sequence')
+        nextseq = next_seq(seqtable, 'user')
+
         # 現在のUNIXタイムスタンプを得る
         now = time.time()
-
 
         # 署名付きURLを作る
         s3 = boto3.client('s3')
@@ -81,8 +81,20 @@ def lambda_handler(event, context):
             }
         )
 
+        # メールを送信する
+        mailbody = """
+        {0}様
 
-                # 結果を返す
+        ご登録ありがとうございました。
+        下記のURLからダウンロードできます。
+
+        {1}
+        """.format(username, url)
+
+        sendmail(email, "登録ありがとうございました", mailbody)
+
+
+        # 結果を返す
         return {
             'statusCode' : 200,
             'headers' : {
