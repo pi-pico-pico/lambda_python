@@ -9,22 +9,28 @@ import os
 dynamodb = boto3.resource('dynamodb')
 
 MAILFROM = os.environ['email']
-def sendmail(to, subject, body) :
+def sendmail(to, subject, body):
     client = boto3.client('ses', region_name='ap-northeast-1')
 
     response = client.send_email(
         Source=MAILFROM,
         ReplyToAddresses=[MAILFROM],
-        Destination= {
+        Destination={
             'ToAddresses' : [
                 to
             ]
         },
         Message={
-            'Subject': {
+            'Subject' : {
                 'Data' : subject,
                 'Charset' : 'UTF-8'
             },
+            'Body': {
+                'Text' : {
+                    'Data' : body,
+                    'Charset' : 'UTF-8'
+                }
+            }
         }
     )
 
