@@ -3,11 +3,12 @@ import boto3
 import urllib.parse
 import time
 import decimal
+import os
 
 # DynamoDBオブジェクト
 dynamodb = boto3.resource('dynamodb')
 
-MAILFROM = 'example@examle.com'
+MAILFROM = os.environ['email']
 def sendmail(to, subject, body) :
     client = boto3.client('ses', region_name='ap-northeast-1')
 
@@ -23,7 +24,7 @@ def sendmail(to, subject, body) :
             'Subject': {
                 'Data' : subject,
                 'Charset' : 'UTF-8'
-            }
+            },
         }
     )
 

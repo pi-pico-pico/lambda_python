@@ -62,7 +62,7 @@ def lambda_handler(event, context):
         )
 
 
-                # 結果を返す
+        # 結果を返す
         return {
             'statusCode' : 200,
             'headers' : {
