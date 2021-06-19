@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajaxテスト</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function regist() {
+            var apiurl = '';
+            var form = $('#myform');
+            var formdata = form.serialize();
+
+            $.ajax({
+                type : 'POST',
+                url : apiurl,
+                data : formdata,
+                dataType : 'json'
+            }).done(function(response) {
+                if (response.result == 1) {
+                    $('#msg').html('登録ありがとうございました。ダウンロード先を記載したメールを送りました。');
+                } else {
+                    $('#msg').html('エラーが発生しました。' + response.message);
+                }
+            }).fail(function() {
+                alert(status);
+            });
+
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <form id="myform">
+        氏名：<input type="text" name="username"><br>
+        メールアドレス：<input type="button" value="登録" onclick="regist()">
+    </form>
+    <p id="msg"></p>
+</body>
+</html>
