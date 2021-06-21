@@ -1,11 +1,13 @@
 import json
+def lambda_handler(event, context):
 
-body = {'result' : 1}
+    body = {'result' : 1}
 
-result = {
-    'statusCode' : 200,
-    'headers' : {
-        'content-type' : 'application/json'
-    },
-    'body' : json.dumps(body)
-}
+    return {
+        'statusCode' : 200,
+        'headers' : {
+            'access-control-allow-origin' : os.environ['s3endpoint'],
+            'content-type' : 'application/json'
+        },
+        'body' : json.dumps(body)
+    }
