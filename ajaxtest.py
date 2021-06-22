@@ -1,4 +1,6 @@
 import json
+import os
+
 def lambda_handler(event, context):
 
     body = {'result' : 1}
