@@ -12,3 +12,7 @@ def lambda_handler(event, context):
     sqs = boto3.resource('sqs')
     queue = sqs.get_queue_by_name(QueueName="mailsendqueue000")
     
+    for rec in event['Records']:
+        # ③S3に置かれたファイルパスを取得
+        backetname = rec['s3']['bucket']['name']
+        filename = rec['s3']['object']['key']
