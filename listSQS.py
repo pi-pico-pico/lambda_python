@@ -16,3 +16,5 @@ def lambda_handler(event, context):
         # ③S3に置かれたファイルパスを取得
         backetname = rec['s3']['bucket']['name']
         filename = rec['s3']['object']['key']
+
+        # ④haserrorが0のものをmailaddressテーブルから取得
