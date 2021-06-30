@@ -18,3 +18,18 @@ def lambda_handler(event, context):
         filename = rec['s3']['object']['key']
 
         # ④haserrorが0のものをmailaddressテーブルから取得
+        response = table.query(
+            IndexName='haserror-index',
+            KeyConditionExpression=Key('header').eq(0)
+        )
+
+        # ⑤上記の１件１件についてグループ処理
+        for item in response['Item']:
+            # ⑥送信済みを示すissendを0にする
+            table.update_item(
+                Key={'email' : item['email']},
+                UpdateExpression="set issend=:val",
+                MessageAttributeValues={
+                    ':val' : 0
+                }
+            )
