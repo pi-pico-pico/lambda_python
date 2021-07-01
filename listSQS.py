@@ -33,3 +33,23 @@ def lambda_handler(event, context):
                     ':val' : 0
                 }
             )
+            # ⑦SQSにメッセージとして登録する
+            spsresponse = queue.send_message(
+                MessageBody=item['email'],
+                MessageAttributes={
+                    'username' : {
+                        'DataType' : 'String',
+                        'StringValue' : item['username']
+                    },
+                    'backetname' : {
+                        'DataType' : 'String',
+                        'StringValue' : backetname
+                    },
+                    'filename' : {
+                        'DataType' : 'String',
+                        'StringValue' : filename
+                    }
+                }
+            )
+            # 結果をログに出力しておく
+            print(json.dumps(spsresponse))
