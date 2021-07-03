@@ -1,6 +1,7 @@
 import json
 import urllib.parse
 import boto3
+import os
 from boto3.dynamodb.conditions import Key, Attr
 
 def lambda_handler(event, context):
@@ -10,7 +11,7 @@ def lambda_handler(event, context):
 
     # ②SQSのキューを操作するオブジェクト
     sqs = boto3.resource('sqs')
-    queue = sqs.get_queue_by_name(QueueName="mailsendqueue000")
+    queue = sqs.get_queue_by_name(QueueName=os.environ['mailsendqueue'])
     
     for rec in event['Records']:
         # ③S3に置かれたファイルパスを取得
