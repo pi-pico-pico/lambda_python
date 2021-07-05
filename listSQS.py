@@ -21,17 +21,17 @@ def lambda_handler(event, context):
         # ④haserrorが0のものをmailaddressテーブルから取得
         response = table.query(
             IndexName='haserror-index',
-            KeyConditionExpression=Key('header').eq(0)
+            KeyConditionExpression=Key('haserror').eq('0')
         )
 
         # ⑤上記の１件１件についてグループ処理
-        for item in response['Item']:
+        for item in response['Items']:
             # ⑥送信済みを示すissendを0にする
             table.update_item(
                 Key={'email' : item['email']},
                 UpdateExpression="set issend=:val",
-                MessageAttributeValues={
-                    ':val' : 0
+                ExpressionAttributeValues={
+                    ':val' : '0'
                 }
             )
             # ⑦SQSにメッセージとして登録する
