@@ -9,7 +9,7 @@ queue = sqs.get_queue_by_name(QueueName=os.environ['mailsendqueue'])
 # SNSトピックを取得
 sns = boto3.resource('sns')
 # 下記修正
-topic = sns.Topic('')
+topic = sns.Topic(os.environ['arn'])
 
 def lambda_handler(event, context):
     # キューの待ち数を確認する
