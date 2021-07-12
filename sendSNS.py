@@ -15,7 +15,7 @@ def lambda_handler(event, context):
     # キューの待ち数を確認する
     n = queue.attributes['ApproximateNumberOfMessages']
     # 10単位でSNSトピックに通知する
-    for i in range(int(int((n + 9) / 10))):
+    for i in range(int((int(n) + 9) / 10)):
         topic.publish(
             Message=os.environ['mailsendqueue']
         )
