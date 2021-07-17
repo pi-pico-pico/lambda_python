@@ -16,4 +16,16 @@ def lambda_handler(event, context):
         snsmessage = rec['Sns']['Message']
         # SQSのキューを取得
         queue = sqs.get_queue_by_name(QueueName=snsmessage)
-        
+        # キューからメッセージを読み込む
+        messages = queue.receive_messages(MessageAttributeNames=['All'], MaxNumberOfMessages = 10)
+
+        # メッセージを処理してメールを送信する
+        for m in messages:
+            # キューの内容
+            email = m.body
+            if m.message_attributes is not None:
+                print("Sending……")
+                username = m.message_attributes.get('username').get('StringValue')
+                backetname = m.message_attributes.get('backetname').get('StringValue')
+                filename = m.message_attributes.get('filename').get('StringValue')
+                
