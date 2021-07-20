@@ -1,5 +1,6 @@
 import json
 import boto3
+import os
 
 sqs = boto3.resource('sqs')
 s3 = boto3.resource('s3')
@@ -7,7 +8,7 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('mailaddress')
 
 client = boto3.client('ses', region_name='ap-northeast-1')
-MAILFROM= ''
+MAILFROM= os.environ['email']
 
 
 def lambda_handler(event, context):
