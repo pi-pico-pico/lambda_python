@@ -37,7 +37,7 @@ def lambda_handler(event, context):
                 # S3バケットから本文を取得する
                 obj = s3.Object(backetname, filename)
                 response = obj.get()
-                maildata = response['Body'].read().decode('utef-8')
+                maildata = response['Body'].read().decode('utf-8')
                 datas = maildata.split("\n", 3)
                 subject = datas[0]
                 body = datas[2]
