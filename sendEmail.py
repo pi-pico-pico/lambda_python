@@ -51,7 +51,7 @@ def lambda_handler(event, context):
                     ExpressionAttributeValues = {
                     ':val' : 1
                     },
-                    returnValues = 'UPDATED_OLD'
+                    ReturnValues = 'UPDATED_OLD'
                 )
 
                 if response['Attributes']['issend'] == 0:
