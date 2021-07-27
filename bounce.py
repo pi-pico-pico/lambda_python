@@ -7,3 +7,5 @@ table = dynamodb.Table('mailaddress')
 
 def lambda_handler(event, context):
     for rec in event['Records']:
+        # バウンスしたメールアドレスの取得
+        message = rec['Sns']['Message']
