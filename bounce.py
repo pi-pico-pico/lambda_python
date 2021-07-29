@@ -14,3 +14,9 @@ def lambda_handler(event, context):
         for b in bounces:
             email = b['emailAddress']
             # haserrorを1に設定する
+            response = table.update_item(
+                Key={'email' : email},
+                UpdateExpressionAttributeValues= {
+                    ':val' : 1
+                }
+            )
