@@ -10,7 +10,7 @@ def lambda_handler(event, context):
         # バウンスしたメールアドレスの取得
         message = rec['Sns']['Message']
         data = json.loads(message)
-        bounce = data['bounce']['bounceRecipients']
+        bounces = data['bounce']['bounceRecipients']
         for b in bounces:
             email = b['emailAddress']
             # haserrorを1に設定する
