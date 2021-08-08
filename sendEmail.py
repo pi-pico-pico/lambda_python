@@ -54,7 +54,7 @@ def lambda_handler(event, context):
                     ReturnValues = 'UPDATED_OLD'
                 )
 
-                if response['Attributes']['issend'] == 0:
+                if response['Attributes']['issend'] == '0':
                     # メール送信
                     response = client.send_email(
                         Source=MAILFROM,
