@@ -67,16 +67,16 @@ def lambda_handler(event, context):
                         Message={
                             'Subject': {
                                 'Data' : subject,
-                                'Charsest' : 'UTF-8'
+                                'Charset' : 'UTF-8'
                             },
                             'Body' : {
                                 'Text' : {
                                     'Data' : body,
                                     'Charset' : 'UTF-8'
+                                }
                             }
                         }
-                    }
-                )
+                    )
                 else:
                     print("Resend Skip")
 
